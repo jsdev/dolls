@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Slideshow</title>
+</head>
+<body>
+  <div id="slideshow"></div>
+
+  <script>
+    var images = [];
+
+    // Get all images from the directory
+    fetch('https://api.github.com/repos/jsdev/dolls/contents/images')
+      .then(response => response.json())
+      .then(data => {
+        data.forEach(file => {
+          if (file.type === 'file' && file.name.endsWith('.jpg')) {
+            images.push(file.download_url);
+          }
+        });
+
+        // Create the slideshow
+        var slideshow = document.getElementById('slideshow');
+        var index = 0;
+
+        setInterval(function() {
+          slideshow.style.backgroundImage = 'url(' + images[index] + ')';
+          index = (index + 1) % images.length;
+        }, 5000);
+      });
+  </script>
+</body>
+</html>
