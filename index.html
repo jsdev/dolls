@@ -15,7 +15,7 @@
       .then(response => response.json())
       .then(data => {
         data.forEach(file => {
-          if (file.type === 'file' && file.name.endsWith('.jpg')) {
+          if (file.type === 'file' && file.name.endsWith('.jfif')) {
             images.push(file.download_url);
           }
         });
