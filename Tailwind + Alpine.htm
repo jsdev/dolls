@@ -1,0 +1,126 @@
+<html lang="en"><head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+		<title>Tailwind + Alpine</title>
+		<style>
+			[x-cloak] {
+				display: none !important;
+			}
+		</style>
+	</head>
+	<body x-data="app()" class="min-h-screen text-gray-600 flex justify-center items-center p-2">
+		<div>
+			<div class="mb-4">
+				<div x-data="radioTabs('plan', plans)" class="
+						inline-flex
+						p-1
+						pr-0
+						bg-green-100
+						rounded-full
+						overflow-hidden
+					">
+					<template x-for="radio in radios">
+						<label :for="radio.id" class="
+								block
+								px-4
+								py-1
+								rounded-full
+								cursor-pointer
+								hover:bg-green-400 hover:text-white
+								mr-1
+							" :class="selectedPlan === radio.value ? 'bg-green-500 text-white': ''">
+							<input type="radio" class="h0" :id="radio.id" :value="radio.value" :name="name" x-model="selectedPlan">
+							<div x-text="radio.label"></div>
+						</label>
+					</template><label :for="radio.id" class="block px-4 py-1 rounded-full cursor-pointer hover:bg-green-400 hover:text-white mr-1 bg-green-500 text-white" :class="selectedPlan === radio.value ? 'bg-green-500 text-white': ''" for="radio-tab-plan-a">
+							<input type="radio" class="h0" :id="radio.id" :value="radio.value" :name="name" x-model="selectedPlan" id="radio-tab-plan-a" value="Plan A" name="plan">
+							<div x-text="radio.label">Plan A</div>
+						</label><label :for="radio.id" class="block px-4 py-1 rounded-full cursor-pointer hover:bg-green-400 hover:text-white mr-1" :class="selectedPlan === radio.value ? 'bg-green-500 text-white': ''" for="radio-tab-plan-b">
+							<input type="radio" class="h0" :id="radio.id" :value="radio.value" :name="name" x-model="selectedPlan" id="radio-tab-plan-b" value="Plan B" name="plan">
+							<div x-text="radio.label">Plan B</div>
+						</label>
+				</div>
+			</div>
+
+			<div class="mb-4">
+				<div x-data="radioTabs('direction', directions)" class="
+						inline-flex
+						p-1
+						pr-0
+						bg-green-100
+						rounded-full
+						overflow-hidden
+					">
+					<template x-for="radio in radios">
+						<label :for="radio.id" class="
+								block
+								px-4
+								py-1
+								rounded-full
+								cursor-pointer
+								hover:bg-green-400 hover:text-white
+								mr-1
+							" :class="selectedDirection === radio.value ? 'bg-green-500 text-white': ''">
+							<input type="radio" class="h0" :id="radio.id" :value="radio.value" :name="name" x-model="selectedDirection">
+							<div x-text="radio.label"></div>
+						</label>
+					</template><label :for="radio.id" class="block px-4 py-1 rounded-full cursor-pointer hover:bg-green-400 hover:text-white mr-1 bg-green-500 text-white" :class="selectedDirection === radio.value ? 'bg-green-500 text-white': ''" for="radio-tab-direction-e">
+							<input type="radio" class="h0" :id="radio.id" :value="radio.value" :name="name" x-model="selectedDirection" id="radio-tab-direction-e" value="East" name="direction">
+							<div x-text="radio.label">East</div>
+						</label><label :for="radio.id" class="block px-4 py-1 rounded-full cursor-pointer hover:bg-green-400 hover:text-white mr-1" :class="selectedDirection === radio.value ? 'bg-green-500 text-white': ''" for="radio-tab-direction-w">
+							<input type="radio" class="h0" :id="radio.id" :value="radio.value" :name="name" x-model="selectedDirection" id="radio-tab-direction-w" value="West" name="direction">
+							<div x-text="radio.label">West</div>
+						</label><label :for="radio.id" class="block px-4 py-1 rounded-full cursor-pointer hover:bg-green-400 hover:text-white mr-1" :class="selectedDirection === radio.value ? 'bg-green-500 text-white': ''" for="radio-tab-direction-n">
+							<input type="radio" class="h0" :id="radio.id" :value="radio.value" :name="name" x-model="selectedDirection" id="radio-tab-direction-n" value="North" name="direction">
+							<div x-text="radio.label">North</div>
+						</label><label :for="radio.id" class="block px-4 py-1 rounded-full cursor-pointer hover:bg-green-400 hover:text-white mr-1" :class="selectedDirection === radio.value ? 'bg-green-500 text-white': ''" for="radio-tab-direction-s">
+							<input type="radio" class="h0" :id="radio.id" :value="radio.value" :name="name" x-model="selectedDirection" id="radio-tab-direction-s" value="South" name="direction">
+							<div x-text="radio.label">South</div>
+						</label>
+				</div>
+			</div>
+
+			<div class="text-gray-500">
+				You've selected
+				<span class="text-green-500" x-text="selectedPlan">Plan A</span> &amp;
+				your selected direction is
+				<span class="text-green-500" x-text="selectedDirection">East</span>.
+			</div>
+		</div>
+
+		<script>
+			const plans = [
+				{ id: "radio-tab-plan-a", value: "Plan A", label: "Plan A" },
+				{ id: "radio-tab-plan-b", value: "Plan B", label: "Plan B" },
+			]
+			const directions = [
+				{ id: "radio-tab-direction-e", value: "East", label: "East" },
+				{ id: "radio-tab-direction-w", value: "West", label: "West" },
+				{ id: "radio-tab-direction-n", value: "North", label: "North" },
+				{ id: "radio-tab-direction-s", value: "South", label: "South" },
+			]
+			function app() {
+				return {
+					selectedPlan: "Plan A",
+					selectedDirection: "North",
+				}
+			}
+			function radioTabs(name, radios) {
+				return {
+					name,
+					radios,
+				}
+			}
+		</script>
+		<style>
+		.h0 {
+			position: absolute;
+			opacity: 0;
+		}
+		label:focus-within {box-shadow: black 1px 1px; }</style>
+<script defer="" src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+	
+
+</body></html>
